@@ -1,0 +1,66 @@
+<h1>Monthly Loan Repayment Breakdown</h1>
+<p>Enter details, and click 'Calculate &gt;' to see how much of your repayment was interest, and how much your loan balance has decreased. Assumes monthly repayments, interest calculated daily but charged at the start of the following month. If it doesn't work for you, please <a href="http://jamescrisp.org/contact" target="_blank">tell me</a>.
+</p>
+
+<% form_tag :action=> :index do %>  
+
+<label>Month to calculate interest for (eg, January = 1, Dec = 12):</label>
+<%= text_field :loan_month, :month %>
+<br/>
+
+<label>Mandatory repayment amount:</label>
+$ <%= text_field :loan_month, :repayment %>
+<br/>
+
+<label>Loan Balance at start of month:</label>
+$ <%= text_field :loan_month, :balance %>
+<br/>
+
+<label>Interest Rate / Year:</label>
+% <%= text_field :loan_month, :interest_rate %>
+<br/>
+
+<p class="opt_head">If interest rate changed during month:</p>
+<div id="changing_rate">
+<label>New Interest Rate:</label>
+% <%= text_field :loan_month, :interest_rate2 %>
+<br/>
+
+<label>New Interest Rate start day of month:</label>
+<%= text_field :loan_month, :rate2_start_day %>
+<br/>
+</div>
+
+<p class="opt_head">If you made an extra repayment:</p>
+<div id="changing_rate">
+<label>Extra repayment amount:</label>
+$ <%= text_field :loan_month, :extra_repayment %>
+<br/>
+
+<label>Extra repayment day of month:</label>
+<%= text_field :loan_month, :extra_repayment_day %>
+<br/>
+</div>
+
+
+<%= submit_tag " Calculate > ", {:class=>"button"} %>
+
+<% if @loan_month.interest > 0 then %>
+  <p class="opt_head">RESULTS</p>
+  <table>
+  <tr>
+    <td>Repayment:</td><td><%= number_to_currency(@loan_month.repayment) %></td>
+  </tr>
+  <tr>
+    <td>Interest: </td><td><%= number_to_currency(@loan_month.interest) %></td>
+  </tr>
+  <tr>
+    <td>Loan balance decreased by: </td><td><%= number_to_currency(@loan_month.amount_repaid) %></td>
+  </tr>
+  <tr>
+    <td>New balance: </td><td><%= number_to_currency(@loan_month.new_balance) %></td>
+  </tr>
+  </table>
+<% end %>
+
+<% end %>

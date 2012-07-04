@@ -1,0 +1,9 @@
+log/*.log*
+log/*.html
+log/*.pid
+tmp/**/*
+*.swp
+mkmf.log
+config/server
+log/from_prod
+Gemfile
